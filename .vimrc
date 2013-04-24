@@ -23,10 +23,6 @@ set sw=4
 :map <C-L>? ^2x
 :imap <C-L><TAB> <ESC>^i<TAB>
 :imap <C-L><BS> <ESC>^4i<BS><ESC>I
-:map <C-L>l :%s/CaesamCmd/DocCmd/g<CR>
-:imap <C-L>l <ESC>:%s/CaesamCmd/DocCmd/g<CR>
-:map <C-L>k :%s/KernelCmd/DocCmd/g<CR>
-:imap <C-L>k <ESC>:%s/KernelCmd/DocCmd/g<CR>
 :set mouse=a
 :set wildmenu
 :set wildmode=full
