@@ -78,10 +78,22 @@ endfunction
 :imap <C-L>jE <ESC>:call JavaPrintAbove("ERROR")<CR>
 
 " wrap selection in function
-function! WrapInFunction()
-    let s:currentLine = line(".")
-    let s:currentFile = expand("%:t")
+function! WrapInFunctionV() range
     let s:usrPrompt = input("func: ", "")
     execute "normal `>a)\<ESC>`<i".s:usrPrompt."(\<ESC>"
 endfunction
-:vnoremap <C-L>f :call WrapInFunction()<CR>
+:vnoremap <C-L>f :call WrapInFunctionV()<CR>
+
+" this one's here as an example
+function! WrapInFunctionL() range
+    let s:usrPrompt = input("func: ", "")
+    execute "normal ".a:firstline."GI".s:usrPrompt."(\<ESC>".a:lastline."GA)\<ESC>"
+endfunction
+
+function! WrapInFunctioNMarks()
+    let s:firstMark = input("first mark: ", "q")
+    let s:lastMark = input("last mark: ", "w")
+    let s:usrPrompt = input("func: ", "")
+    execute "normal `".s:lastMark."a)\<ESC>`".s:firstMark."i".s:usrPrompt."(\<ESC>"
+endfunction
+:noremap <C-L>f :call WrapInFunctioNMarks()<CR>
