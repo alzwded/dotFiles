@@ -50,6 +50,7 @@ autocmd BufNewFile,BufRead *.m setlocal syntax=objc
 autocmd BufNewFile,BufRead *.g3pl setlocal syntax=yacc
 autocmd BufNewFile,BufRead *.gxx\|*.lxx setlocal syntax=cpp
 autocmd BufNewFile,BufRead *.cxx\|*.c\>\|*.h\>\|*.cpp\|*.hxx\|*.hpp\|*.c++\|*.h++ setlocal cindent
+autocmd BufNewFile,BufRead NOTES\|*.notes setlocal syntax=notes
 
 :set clipboard="unnamed,autoselect,exclude:const\|linux"
 
