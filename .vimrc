@@ -60,3 +60,13 @@ autocmd BufNewFile,BufRead NOTES\|*.notes setlocal syntax=notes
 :vnoremap <C-L>[ <Esc>`>a]<Esc>`<i[<Esc>
 :vnoremap <C-L>{ <Esc>`>a}<Esc>`<i{<Esc>
 
+" windows, gvim: ^[ as <Esc> doesn't seem to work; 
+" also, remapping LCTR doesn't work because it breaks (!) the AltGr key
+" ergo, map ^Tab for this
+if has("win32")
+    inoremap <C-Tab> <Esc>
+    xnoremap <C-Tab> <Esc>
+    nnoremap <C-Tab> <Esc>
+    onoremap <C-Tab> <Esc>
+    cnoremap <C-Tab> <C-C> " hehe, cpoptions+=x is always there in c_ mode and that triggers c_<Esc>; FU
+endif
