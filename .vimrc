@@ -51,6 +51,7 @@ autocmd BufNewFile,BufRead *.g3pl setlocal syntax=yacc
 autocmd BufNewFile,BufRead *.gxx\|*.lxx setlocal syntax=cpp
 autocmd BufNewFile,BufRead *.cxx\|*.c\>\|*.h\>\|*.cpp\|*.hxx\|*.hpp\|*.c++\|*.h++ setlocal cindent
 autocmd BufNewFile,BufRead NOTES\|*.notes setlocal syntax=notes
+autocmd BufNewFile,BufRead *.ss setlocal lisp
 
 :set clipboard="unnamed,autoselect,exclude:const\|linux"
 
