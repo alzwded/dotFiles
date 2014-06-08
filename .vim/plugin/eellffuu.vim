@@ -97,3 +97,27 @@ function! WrapInFunctioNMarks()
     execute "normal `".s:lastMark."a)\<ESC>`".s:firstMark."i".s:usrPrompt."(\<ESC>"
 endfunction
 :noremap <C-L>f :call WrapInFunctioNMarks()<CR>
+
+function! IndentJSon()
+    " add line feeds
+    execute "%s/\\\([{[,]\\\)/\\1\\r/ge"
+    execute "%s/\\\([\\]}]\\\)/\\r\\1/ge"
+    " do some weird substitutions to have =G work nicely
+    execute "%s/{/{\001/ge"
+    execute "%s/}/}\001/ge"
+    execute "%s/\\[/{{/ge"
+    execute "%s/]/}}/ge"
+    execute "%s/;/;\001/ge"
+    execute "%s/,/;;/ge"
+    " indent
+    execute "normal gg=G"
+    " reverse weird substitutions
+    execute "%s/;;/,/ge"
+    execute "%s/;\001/;/ge"
+    execute "%s/\001/,/ge"
+    execute "%s/{{/[/ge"
+    execute "%s/}}/]/ge"
+    execute "%s/{\001/}/ge"
+    execute "%s/{\001/}/ge"
+endfunction
+:noremap <C-L>ij :call IndentJSon()<CR>
