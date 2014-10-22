@@ -11,7 +11,7 @@ function! MDToHtml()
 \       ."p\<ESC>"
 \       .l:cmd."\<CR>"
 \       ."ggO<html><head><title>".l:currentFile."</title>"
-\            ."<style>code { font-family: monospace; white-space: pre-wrap; } </style>"
+\            ."<style>code { font-family: monospace; white-space: pre-wrap; } .footnote { vertical-align: super; font-size: 50%; } </style>"
 \            ."</head><body>\<ESC>"
 \       ."ggO<!DOCTYPE html>\<ESC>"
 \       ."Go</body></html>\<ESC>"
