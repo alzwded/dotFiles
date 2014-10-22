@@ -10,8 +10,11 @@ function! MDToHtml()
 \       .":new\<CR>"
 \       ."p\<ESC>"
 \       .l:cmd."\<CR>"
-\       ."ggO<html><head><title>".l:currentFile."</title></head><body>\<ESC>"
-\       ."Go</body></html>"
+\       ."ggO<html><head><title>".l:currentFile."</title>"
+\            ."<style>code { font-family: monospace; white-space: pre-wrap; } </style>"
+\            ."</head><body>\<ESC>"
+\       ."ggO<!DOCTYPE html>\<ESC>"
+\       ."Go</body></html>\<ESC>"
 endfunction
 
 function! MDToHtmlSnippet()
