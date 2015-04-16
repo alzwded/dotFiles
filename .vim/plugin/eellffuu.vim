@@ -126,10 +126,13 @@ let g:fToggleTextWidth = 0
 function! ToggleTextWidth()
     if g:fToggleTextWidth == 0
         let g:fToggleTextWidth = 1
-        set textwidth=72
+        silent bufdo set textwidth=72
+        echo "textwidth=72"
     else
         let g:fToggleTextWidth = 0
-        set textwidth=0
+        silent bufdo set textwidth=0
+        echo "textwidth off"
     endif
 endfunction
 :noremap <C-L>t :call ToggleTextWidth()<CR>
+
