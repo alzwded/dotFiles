@@ -121,3 +121,15 @@ function! IndentJSon()
     execute "%s/{\001/}/ge"
 endfunction
 :noremap <C-L>ij :call IndentJSon()<CR>
+
+let g:fToggleTextWidth = 0
+function! ToggleTextWidth()
+    if g:fToggleTextWidth == 0
+        let g:fToggleTextWidth = 1
+        set textwidth=72
+    else
+        let g:fToggleTextWidth = 0
+        set textwidth=0
+    endif
+endfunction
+:noremap <C-L>t :call ToggleTextWidth()<CR>
