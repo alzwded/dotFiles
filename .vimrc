@@ -71,3 +71,7 @@ if has("win32")
     onoremap <C-Tab> <Esc>
     cnoremap <C-Tab> <C-C> " hehe, cpoptions+=x is always there in c_ mode and that triggers c_<Esc>; FU
 endif
+
+set fileencoding=utf8 " win32 defaults to code pages...
+set encoding=utf8 " win32 defaults to code pages...
+set textwidth=72 " I tend to wrap lines at around this width
