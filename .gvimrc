@@ -9,3 +9,4 @@ set columns=80
 " I've made a habbit of flipping colors on my screens lately,
 " and this scheme works either way
 color morning
+set bg=light
