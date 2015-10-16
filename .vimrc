@@ -16,7 +16,7 @@ set sw=4
 :map <C-W><C-E> :Explore<CR>
 :map <F2> :set hls<CR>/
 :map <F3> :set nohls<CR>
-:map <C-N> :new 
+":map <C-N> :new " I don't use this anymore; instead, I actually use the normal C-P and C-N
 " remap stuff with ctrl-l<cmd> because it's not used anywhere useful
 "   also: keep <C-L>g clear in case I need <C-L>g<something else which is already used>
 :map <C-L><BS> ^4i<BS><ESC>
