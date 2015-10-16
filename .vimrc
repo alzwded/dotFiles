@@ -1,4 +1,5 @@
 syntax on
+set ruler
 set number
 set laststatus=2
 set ai
