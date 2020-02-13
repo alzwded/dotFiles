@@ -76,3 +76,8 @@ endif
 
 set fileencoding=utf8 " win32 defaults to code pages...
 set encoding=utf8 " win32 defaults to code pages...
+
+"set tags=tags,moretags,allthetags
+
+set redrawtime=10000
+syntax sync minlines=10000
