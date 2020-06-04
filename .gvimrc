@@ -1,5 +1,6 @@
 set guioptions-=T
 set guioptions-=m
+set guioptions+=! " launch ! commands in the new :terminal
 set guifont=Monospace\ 10
 "set guifont=Courier10_BT:h10:cANSI
 "set guifon=CMY_Typewriter_Text:h11:cANSI " if installed
