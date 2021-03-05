@@ -38,8 +38,6 @@ set sw=4
 :imap <C-L>T <ESC>:%s/    /\t/g<CR>
 :map <C-L>x :set ro<CR>:%!xxd<CR>
 :map <C-L>X :%!xxd -r<CR>:set noro<CR>
-:map <C-L>h I<!--<ESC>A--><ESC>
-:map <C-L>H ^4x$2h3x
 
 :map <C-L>q <ESC>:qa<CR>
 :map <C-L>!! <ESC>:qa!<CR>
