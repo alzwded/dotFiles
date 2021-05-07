@@ -79,3 +79,7 @@ set encoding=utf8 " win32 defaults to code pages...
 
 set redrawtime=10000
 syntax sync minlines=10000
+
+" if vim is starting in replace mode (e.g. on alpine or wsl):
+"set t_u7=
+"set ambw=double
