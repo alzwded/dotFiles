@@ -83,3 +83,7 @@ syntax sync minlines=10000
 " if vim is starting in replace mode (e.g. on alpine or wsl):
 "set t_u7=
 "set ambw=double
+
+" enable gdb integration if available
+":packadd termdebug
+" run with :Termdebug; see :help :Termdebug
