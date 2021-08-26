@@ -42,6 +42,9 @@ set sw=4
 :map <C-L>q <ESC>:qa<CR>
 :map <C-L>!! <ESC>:qa!<CR>
 
+:map <Left> zh
+:map <Right> zl
+
 set directory=/home/test/vimSwaps/
 "set directory=d:\vimSwaps
 
