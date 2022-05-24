@@ -88,5 +88,8 @@ syntax sync minlines=10000
 "set ambw=double
 
 " enable gdb integration if available
-":packadd termdebug
+:packadd termdebug
+:nmap <C-M-N> :Over<CR>
+:nmap <C-M-S> :Step<CR>
+:nmap <C-M-F> :Finish<CR>
 " run with :Termdebug; see :help :Termdebug
