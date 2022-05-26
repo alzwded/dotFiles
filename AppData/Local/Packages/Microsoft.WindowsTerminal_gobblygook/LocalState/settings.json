@@ -240,6 +240,7 @@ You should be good now
         {
             "bellStyle": "window",
             "colorScheme": "One Half Light",
+            "cursorShape": "filledBox",
             "experimental.retroTerminalEffect": false
         },
         "list": 
