@@ -1,4 +1,4 @@
 myVimConfigs
 ============
 
-my vim config files
+my ~~vim~~ *favourite* config files
