@@ -7,6 +7,7 @@ set guifont=Monospace\ 10
 "set guifont=CMU_Typewriter_Text_NoL:h11:cANSI " c.f. https://github.com/alzwded/etc/tree/master/CmunttRemovedLigatures
 set lines=48
 set columns=80
+set mousemodel=extend
 
 " I've made a habbit of flipping colors on my screens lately,
 " and this scheme works either way
