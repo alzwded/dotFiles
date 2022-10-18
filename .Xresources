@@ -1,0 +1,7 @@
+! use monospaced font
+xterm*faceName: Monospace
+xterm*faceSize: 10
+! don t scroll on output
+xterm*scrollTtyOutput: false
+! but don t have text scroll up once new output is coming in either...
+xterm*autoScrollLock: true

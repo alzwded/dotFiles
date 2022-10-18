@@ -93,3 +93,6 @@ syntax sync minlines=10000
 :nmap <C-M-S> :Step<CR>
 :nmap <C-M-F> :Finish<CR>
 " run with :Termdebug; see :help :Termdebug
+" On OpenBSD, the system gdb is very old, the newer one is installed
+" from ports and called egdb
+"let g:termdebugger = "egdb"
