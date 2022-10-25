@@ -6,8 +6,9 @@ set ai
 set nohls
 set noincsearch
 color slate
-set bg=light
 set bg=dark
+set bg=light
+"highlight clear " for vim 9.0
 :map j gj
 :map k gk
 set expandtab
