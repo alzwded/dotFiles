@@ -1,0 +1,3 @@
+hardstatus on
+hardstatus lastline
+hardstatus string "%?%E!%: %?%H: %w %h"
