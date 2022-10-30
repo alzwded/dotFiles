@@ -1,3 +1,4 @@
 source ~/.cshrc
 set globstar
 set globdot
+unset savehist

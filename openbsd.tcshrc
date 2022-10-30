@@ -6,6 +6,7 @@ unset autolist
 unset cdtohome
 unset complete
 unset correct
+unset savehist
 set prompt="%c%# "
 setenv CLICOLOR
 #alias ls 'ls --color=auto --quoting-style=literal'
