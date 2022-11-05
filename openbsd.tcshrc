@@ -13,6 +13,7 @@ setenv CLICOLOR
 alias ls ls-F
 #alias grep 'grep --color=auto'
 #alias dfreal 'df -x squashfs -x tmpfs -x devtmpfs \!*'
+alias stat 'stat -x \!*'
 setenv QUOTING_STYLE literal
 set globstar
 set globdot
