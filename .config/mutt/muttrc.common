@@ -1,0 +1,16 @@
+set ssl_force_tls = yes
+set abort_nosubject = yes
+#set sort = "threads"
+#set sort_aux = "reverse-date-received"
+set sort = "reverse-date-received"
+set copy = yes
+set mail_check = 60
+
+set header_cache=~/.config/mutt/cache/headers
+set message_cachedir=~/.config/mutt/cache/bodie
+auto_view text/html application/pdf application/msword
+alternative_order text/plain text text/enriched text/html              
+mime_lookup application/octet-stream       
+
+set editor='vim + -c "set textwidth=72" -c "set wrap"'
+set pager_stop

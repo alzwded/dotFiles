@@ -1,0 +1,28 @@
+source ~/.config/mutt/muttrc.common
+
+set from = "x@tilde.club"
+set realname = "~x"
+
+# Imap settings
+set imap_user = "x"
+set imap_pass = "`cat ~/.secret/x`"
+
+# Smtp settings
+set smtp_url = smtps://x@smtp.tilde.club"
+set smtp_pass = "`cat ~/.secret/x`"
+
+# folders
+
+set folder = "imaps://imap.tilde.club/"
+set mbox_type=Maildir
+set mbox="+~/.mail"
+#set mask="!^\\.[^.]"
+set record="+Sent"
+set postponed="+Drafts"
+set spoolfile="+INBOX"
+set trash = "+Trash"
+
+set imap_peek = yes
+set imap_fetch_chunk_size = 100
+set imap_deflate = yes
+
