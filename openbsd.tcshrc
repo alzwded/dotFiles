@@ -21,4 +21,7 @@ set globdot
 alias glinks 'links -g'
 alias watch gnuwatch
 
+alias muttg 'mutt -F ~/.config/mutt/muttrc.gmail'
+alias muttt 'mutt -F ~/.config/mutt/muttrc.tilde'
+
 set color=ls-F
