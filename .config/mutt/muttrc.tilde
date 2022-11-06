@@ -1,6 +1,7 @@
 source ~/.config/mutt/muttrc.common
 
 set from = "x@tilde.club"
+set use_from = yes
 set realname = "~x"
 
 # Imap settings
@@ -8,7 +9,9 @@ set imap_user = "x"
 set imap_pass = "`cat ~/.secret/x`"
 
 # Smtp settings
-set smtp_url = smtps://x@smtp.tilde.club"
+set smtp_url = smtp://x@smtp.tilde.club:587"
+set ssl_starttls = yes
+set ssl_force_tls = yes
 set smtp_pass = "`cat ~/.secret/x`"
 
 # folders

@@ -9,6 +9,7 @@ set imap_pass = "`cat ~/.secret/x`"
 
 # Smtp settings
 set smtp_url = smtps://x@smtp.gmail.com"
+set ssl_force_tls = yes
 set smtp_pass = "`cat ~/.secret/x`"
 
 # folders
