@@ -7,3 +7,9 @@ xterm*scrollTtyOutput: false
 xterm*autoScrollLock: true
 ! geometry?
 xterm*geometry: 80x26
+xterm*on2Clicks: regex [^ 	\n]*
+xterm*on3Clicks: line
+xterm*on4Clicks: group
+xterm*VT100.translations: #override \n\
+     Shift Ctrl <Key>v: insert-selection(CLIPBOARD) \n\
+     Shift Ctrl <Key>c: copy-selection(CLIPBOARD, CUT_BUFFER1) \n
