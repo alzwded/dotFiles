@@ -14,3 +14,5 @@ mime_lookup application/octet-stream
 
 set editor='vim + -c "set textwidth=72" -c "set wrap"'
 set pager_stop
+
+auto_view text/html
