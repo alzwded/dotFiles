@@ -1,2 +1,5 @@
 text/html; links %s; nametemplate=%s.html    
 text/html; links -dump %s; nametemplate=%s.html; copiousoutput
+image/png; feh %s; nametemplate=%s
+image/jpeg; feh %s; nametemplate=%s
+image/gif; feh %s; nametemplate=%s
