@@ -1,4 +1,5 @@
 source ~/.config/mutt/muttrc.common
+set copy = no
 
 set from = "x@gmail.com"
 set realname = "X X"
