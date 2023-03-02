@@ -1,3 +1,4 @@
 hardstatus on
-hardstatus lastline
+hardstatus alwayslastline
 hardstatus string "%?%E!%: %?%H: %w %h"
+defdynamictitle off
