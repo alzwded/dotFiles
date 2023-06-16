@@ -27,7 +27,7 @@ function! Iglobal(args)
 endfunction
 
 " search for C/C++ function/class
-:map <C-L>gg <ESC>:call Iglobal('-qxo')<CR>
+:map <C-L>gg <ESC>:call Iglobal('-qxod')<CR>
 " search for C/C++ references to function/class
 :map <C-L>gr <ESC>:call Iglobal('-qxor')<CR>
 " search for symbols not covered by the above two calls
