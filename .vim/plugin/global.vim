@@ -32,5 +32,7 @@ endfunction
 :map <C-L>gr <ESC>:call Iglobal('-qxor')<CR>
 " search for symbols not covered by the above two calls
 :map <C-L>gs <ESC>:call Iglobal('-qxos')<CR>
+" search for regular expression; not recommended for large projects
+:map <C-L>gw <ESC>:call Iglobal('-qxog')<CR>
 " search for files using partial match
 :map <C-L>gf <ESC>:call Iglobal('-qxP')<CR>
