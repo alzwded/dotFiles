@@ -35,4 +35,4 @@ endfunction
 " search for regular expression; not recommended for large projects
 :map <C-L>gw <ESC>:call Iglobal('-qxog')<CR>
 " search for files using partial match
-:map <C-L>gf <ESC>:call Iglobal('-qxP')<CR>
+:map <C-L>gf <ESC>:call Iglobal('-qxoP')<CR>
