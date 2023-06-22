@@ -7,7 +7,7 @@ function! Iglobal(args)
     let searchfor = input("? ")
     let globalcmdline = 'global ' . a:args . ' ' . searchfor
     " run global
-    let choices = systemlist(globalcmdline)
+    let choices = systemlist(globalcmdline)[0:199]
     " add first prompt to choices
     let choices = ['Results:'] + choices
     let i = 1
@@ -15,9 +15,12 @@ function! Iglobal(args)
         let choices[i] = printf("%4d ", i) . choices[i]
         let i = i + 1
     endwhile
+    if len(choices) == 201
+        let choices = choices + ["...truncated..."]
+    endif
     " ask user
     let n = inputlist(choices)
-    if n > 0 && n < len(choices)
+    if n > 0 && n < len(choices) && n < 201
         let chosen = choices[n]
         let chunks = split(chosen, '\s\+')
         let lno = chunks[2]
