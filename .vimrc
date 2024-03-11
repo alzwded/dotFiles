@@ -84,6 +84,9 @@ set encoding=utf8 " win32 defaults to code pages...
 set redrawtime=10000
 syntax sync minlines=10000
 
+" remove stuff from zipPlugin and keep more normal things
+let g:zipPlugin_ext='*.docm,*.docx,*.dotm,*.dotx,*.epub,*.jar,*.odc,*.odf,*.odg,*.odi,*.odm,*.odp,*.ods,*.odt,*.otc,*.otf,*.otg,*.oth,*.oti,*.otp,*.ots,*.ott,*.oxt,*.potm,*.potx,*.ppam,*.ppsm,*.ppsx,*.pptm,*.pptx,*.sldx,*.thmx,*.vdw,*.war,*.wsz,*.xlam,*.xlsb,*.xlsm,*.xlsx,*.xltm,*.xltx,*.zip'
+
 " if vim is starting in replace mode (e.g. on alpine or wsl):
 "set t_u7=
 "set ambw=double
