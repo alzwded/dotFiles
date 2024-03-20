@@ -4,6 +4,7 @@
 " or
 "let $GTAGSLIBPATH="/here:/there:/everywhere"
 function! Iglobal(args)
+    call inputsave()
     let searchfor = input("? ")
     let globalcmdline = 'global ' . a:args . ' ' . searchfor
     " run global
@@ -27,9 +28,11 @@ function! Iglobal(args)
         let fname = chunks[3]
         :execute 'e +' . lno . ' ' . fname
     endif
+    call inputrestore()
 endfunction
 
 function! Iglobalcomplete(args)
+    call inputsave()
     let searchfor = input("? ")
     let globalcmdline = 'global ' . a:args . ' ' . searchfor
     " run global
@@ -51,6 +54,7 @@ function! Iglobalcomplete(args)
         let chosen = ochoices[n]
         :execute "normal! a\<C-R>\<C-R>=chosen\<CR>\<ESC>"
     endif
+    call inputrestore()
 endfunction
 
 " search for C/C++ function/class

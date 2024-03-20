@@ -1,6 +1,7 @@
 let s:path = expand('<sfile>:p:h')
 
 function! Iworddb()
+    call inputsave()
     let searchfor = input("? ")
     let cmdline = s:path . '/worddb_query.sh e "' . searchfor . '"'
     " run query
@@ -25,9 +26,11 @@ function! Iworddb()
         let fname = chunks[1]
         :execute 'e +' . lno . ' ' . fname
     endif
+    call inputrestore()
 endfunction
 
 function! Iworddbfiles(args)
+    call inputsave()
     let searchfor = input("? ")
     let cmdline = s:path . '/worddb_query.sh ' . a:args . ' "' . searchfor . '"'
     " run query
@@ -50,6 +53,7 @@ function! Iworddbfiles(args)
         let fname = chunks[1]
         :execute 'e ' . fname
     endif
+    call inputrestore()
 endfunction
 
 :map <C-L>we <ESC>:call Iworddb()<CR>
