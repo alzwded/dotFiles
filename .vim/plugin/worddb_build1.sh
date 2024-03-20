@@ -11,7 +11,10 @@ if [[ $STRICTLYWORDS -eq 1 ]] ; then
         echo "$w,$F" >> $T
     done
 else
-    for w in $( tr -sC '[a-zA-Z0-9_\-]' '\n' < "$F" ) ; do
+    # can't decide how wise it is to include -
+    # maybe s/^-*(.*)-*$/\1/ at the end? For later
+    #for w in $( tr -sC '[a-zA-Z0-9_\-]' '\n' < "$F" ) ; do
+    for w in $( tr -sC '[a-zA-Z0-9_]' '\n' < "$F" ) ; do
         echo "$w,$F" >> $T
     done
 fi
