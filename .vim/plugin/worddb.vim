@@ -29,6 +29,18 @@ function! Iworddb()
     call inputrestore()
 endfunction
 
+function! IworddbInBuffer()
+    call inputsave()
+    let searchfor = input("? ")
+    let cmdline = s:path . '/worddb_query.sh e "' . searchfor . '"'
+    " run query
+    let choices = systemlist(cmdline)
+    :execute "normal :new\<CR>"
+    :call append('$', choices)
+    :execute "normal ggdd"
+    call inputrestore()
+endfunction
+
 function! Iworddbfiles(args)
     call inputsave()
     let searchfor = input("? ")
@@ -57,5 +69,6 @@ function! Iworddbfiles(args)
 endfunction
 
 :map <C-L>we <ESC>:call Iworddb()<CR>
+:map <C-L>wE <ESC>:call IworddbInBuffer()<CR>
 :map <C-L>ww <ESC>:call Iworddbfiles('w')<CR>
 :map <C-L>wf <ESC>:call Iworddbfiles('f')<CR>
