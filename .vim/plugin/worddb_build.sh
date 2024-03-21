@@ -11,6 +11,17 @@ CREATE INDEX qqq ON data(word);
 EOT
 
 for PPP in "$@" ; do
+    if [[ "$PPP" =~ ^@ ]] ; then
+        IFS='
+'
+        for PPPP in $( cat "${PPP#@}" ) ; do
+            if [[ -d "$PPPP" ]] ; then
+                find "$PPPP" -type f -exec perl -e 'exit((-T $ARGV[0])?0:1);' '{}' ';' -print -exec "$BUILDER" '{}' ';'
+            else
+                perl -e 'exit((-T $ARGV[0])?0:1);' "$PPPP" && echo "$PPPP" && "$BUILDER" "$PPPP"
+            fi
+        done
+    fi
     if [[ -d "$PPP" ]] ; then
         find "$PPP" -type f -exec perl -e 'exit((-T $ARGV[0])?0:1);' '{}' ';' -print -exec "$BUILDER" '{}' ';'
     else
