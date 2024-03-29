@@ -38,6 +38,7 @@ function! IworddbInBuffer()
     :execute "normal :new\<CR>"
     :call append('$', choices)
     :execute "normal ggdd"
+    :execute "set nomod"
     call inputrestore()
 endfunction
 
