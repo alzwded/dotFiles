@@ -8,7 +8,8 @@ rm -rf "$DB" "$DB"
 sqlite3 "$DB" <<EOT
 -- permanent tables
 CREATE TABLE words(id INTEGER PRIMARY KEY AUTOINCREMENT, word, CONSTRAINT unique_words UNIQUE(word) ON CONFLICT IGNORE);
-CREATE TABLE refs(file, word INTEGER, FOREIGN KEY(word) REFERENCES words(id), CONSTRAINT unique_refs UNIQUE(word, file) ON CONFLICT IGNORE);
+CREATE TABLE files(id INTEGER PRIMARY KEY AUTOINCREMENT, file, CONSTRAINT unique_files UNIQUE(file) ON CONFLICT IGNORE);
+CREATE TABLE refs(file INTEGER, word INTEGER, FOREIGN KEY(file) REFERENCES files(id), FOREIGN KEY(word) REFERENCES words(id), CONSTRAINT unique_refs UNIQUE(word, file) ON CONFLICT IGNORE);
 EOT
 
 # build temp DB, flat
@@ -34,5 +35,4 @@ done
 sqlite3 "$DB" <<EOT
 -- index for fastest word lookups
 CREATE INDEX aaa ON refs(word);
--- file based lookups be damned, we'll never have prefixes there...
 EOT

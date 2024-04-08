@@ -15,7 +15,9 @@ else
     # maybe s/^-*(.*)-*$/\1/ at the end? For later
     #for w in $( tr -sC '[a-zA-Z0-9_\-]' '\n' < "$F" ) ; do
     for w in $( tr -sC '[a-zA-Z0-9_]' '\n' < "$F" ) ; do
-        echo "INSERT OR IGNORE INTO words(word) VALUES ('$w'); INSERT OR IGNORE INTO refs(file, word) VALUES ('$F', (SELECT id FROM words WHERE word = '$w'));" >> $T
+        echo "INSERT OR IGNORE INTO words(word) VALUES ('$w');" >> $T
+        echo "INSERT OR IGNORE INTO files(file) VALUES ('$F');" >> $T
+        echo "INSERT OR IGNORE INTO refs(file, word) VALUES ((SELECT id FROM files WHERE file = '$F'), (SELECT id FROM words WHERE word = '$w'));" >> $T
     done
 fi
 echo 'COMMIT;' >> $T;

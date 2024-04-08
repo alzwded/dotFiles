@@ -28,14 +28,14 @@ case $1 in
     e)
         IFS='
 '
-        for F in $(sqlite3 "$DB" "select file from refs where word in ( select id from words where word like '$THING' escape '@' )") ; do
+        for F in $(sqlite3 "$DB" "select file from files where file in (select file from refs where word in ( select id from words where word like '$THING' escape '@' ))" ) ; do
             grep -Hn "$GREPTHING" "$F"
         done
         ;;
     w)
-        sqlite3 "$DB" "select file from refs where word in ( select id from words where word like '$THING' escape '@' )"
+        sqlite3 "$DB" "select file from files where file in (select file from refs where word in ( select id from words where word like '$THING' escape '@' ))"
         ;;
     f)
-        sqlite3 "$DB" 'select distinct file from refs where file like "%'"$THING"'%";'
+        sqlite3 "$DB" 'select distinct file from files where file like "%'"$THING"'%";'
         ;;
 esac
