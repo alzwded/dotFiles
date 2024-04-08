@@ -4,7 +4,7 @@ DB="${WORDDBPATH:-worddb.sqlite3}"
 STRICTLYWORDS=0
 F="$( realpath "$1" )"
 T=$(mktemp)
-echo 'word,file' > $T
+echo 'BEGIN TRANSACTION;' > $T
 trap 'rm -f $T' EXIT
 if [[ $STRICTLYWORDS -eq 1 ]] ; then
     for w in $( tr -s '[[:punct:][:space:]]' '\n' < "$F" ) ; do
@@ -15,13 +15,13 @@ else
     # maybe s/^-*(.*)-*$/\1/ at the end? For later
     #for w in $( tr -sC '[a-zA-Z0-9_\-]' '\n' < "$F" ) ; do
     for w in $( tr -sC '[a-zA-Z0-9_]' '\n' < "$F" ) ; do
-        echo "$w,$F" >> $T
+        echo "INSERT OR IGNORE INTO words(word) VALUES ('$w'); INSERT OR IGNORE INTO refs(file, word) VALUES ('$F', (SELECT id FROM words WHERE word = '$w'));" >> $T
     done
 fi
+echo 'COMMIT;' >> $T;
 sqlite3 "$DB" <<EOT
 .bail off
 .separator ,
-.import $T data
---select count(*) from data;
+.read $T
 EOT
 #sync -f "$DB"

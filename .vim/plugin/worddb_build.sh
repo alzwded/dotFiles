@@ -4,12 +4,14 @@ ME="$(dirname "$(realpath "$0")")"
 BUILDER="$ME/worddb_build1.sh"
 DB="${WORDDBPATH:-worddb.sqlite3}"
 
-rm -rf "$DB"
+rm -rf "$DB" "$DB"
 sqlite3 "$DB" <<EOT
-CREATE TABLE data(word, file, CONSTRAINT uuu UNIQUE(word, file) ON CONFLICT IGNORE);
-CREATE INDEX qqq ON data(word);
+-- permanent tables
+CREATE TABLE words(id INTEGER PRIMARY KEY AUTOINCREMENT, word, CONSTRAINT unique_words UNIQUE(word) ON CONFLICT IGNORE);
+CREATE TABLE refs(file, word INTEGER, FOREIGN KEY(word) REFERENCES words(id), CONSTRAINT unique_refs UNIQUE(word, file) ON CONFLICT IGNORE);
 EOT
 
+# build temp DB, flat
 for PPP in "$@" ; do
     if [[ "$PPP" =~ ^@ ]] ; then
         IFS='
@@ -28,3 +30,9 @@ for PPP in "$@" ; do
         perl -e 'exit((-T $ARGV[0])?0:1);' "$PPP" && echo "$PPP" && "$BUILDER" "$PPP"
     fi
 done
+
+sqlite3 "$DB" <<EOT
+-- index for fastest word lookups
+CREATE INDEX aaa ON refs(word);
+-- file based lookups be damned, we'll never have prefixes there...
+EOT

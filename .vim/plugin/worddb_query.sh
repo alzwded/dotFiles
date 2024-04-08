@@ -23,16 +23,16 @@ case $1 in
     e)
         IFS='
 '
-        for l in $(sqlite3 "$DB" "select word,file from data where word like '$THING' escape '@'") ; do
+        for l in $(sqlite3 "$DB" "select words.word,refs.file from words,refs where refs.word = words.id and words.word like '$THING' escape '@'") ; do
             W=$( echo "$l" | awk -F '|' '{print $1}' )
             F=$( echo "$l" | awk -F '|' '{print $2}' )
             grep -Hn "$W" "$F"
         done
         ;;
     w)
-        sqlite3 "$DB" "select file from data where word like '$THING' escape '@'"
+        sqlite3 "$DB" "select file from refs where word in ( select id from words where word like '$THING' escape '@' )"
         ;;
     f)
-        sqlite3 "$DB" 'select distinct file from data where file like "%'"$THING"'%";'
+        sqlite3 "$DB" 'select distinct file from refs where file like "%'"$THING"'%";'
         ;;
 esac
