@@ -1,4 +1,5 @@
 " TODO update s:JakMarkPath accordingly
+" c.f. https://github.com/alzwded/JakMark/blob/master/vim/plugin/JakMarkToStuff.vim
 let s:JakMarkPath = 'C:\Projects\JakMark\JakMark\bin\Release\JakMark.exe'
 
 autocmd BufNewFile,BufRead *.jm setlocal syntax=jm
