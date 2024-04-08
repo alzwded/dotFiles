@@ -14,19 +14,22 @@ showhelp() {
 }
 
 THING="$2"
+GREPTHING="$2"
+
 THING="${THING//_/@_}"
 THING="${THING//\*/%}"
 THING="${THING//\?/_}"
+
+GREPTHING="${GREPTHING//\*/.*}"
+GREPTHING="${GREPTHING//\?/.?}"
 
 case $1 in
     *h) showhelp ;;
     e)
         IFS='
 '
-        for l in $(sqlite3 "$DB" "select words.word,refs.file from words,refs where refs.word = words.id and words.word like '$THING' escape '@'") ; do
-            W=$( echo "$l" | awk -F '|' '{print $1}' )
-            F=$( echo "$l" | awk -F '|' '{print $2}' )
-            grep -Hn "$W" "$F"
+        for F in $(sqlite3 "$DB" "select file from refs where word in ( select id from words where word like '$THING' escape '@' )") ; do
+            grep -Hn "$GREPTHING" "$F"
         done
         ;;
     w)

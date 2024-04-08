@@ -18,3 +18,4 @@ endfunction
 command! -range=% HtmlClip silent call CopyFormatted(<line1>,<line2>)
 noremap <C-L>h <Esc>:HtmlClip<CR>
 vnoremap <C-L>h <Esc>:'<,'>HtmlClip<CR>
+

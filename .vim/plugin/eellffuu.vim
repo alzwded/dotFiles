@@ -78,49 +78,13 @@ endfunction
 :imap <C-L>jE <ESC>:call JavaPrintAbove("ERROR")<CR>
 
 " wrap selection in function
-function! WrapInFunctionV() range
+function! WrapInFunction()
+    let s:currentLine = line(".")
+    let s:currentFile = expand("%:t")
     let s:usrPrompt = input("func: ", "")
     execute "normal `>a)\<ESC>`<i".s:usrPrompt."(\<ESC>"
 endfunction
-:vnoremap <C-L>f :call WrapInFunctionV()<CR>
-
-" this one's here as an example
-function! WrapInFunctionL() range
-    let s:usrPrompt = input("func: ", "")
-    execute "normal ".a:firstline."GI".s:usrPrompt."(\<ESC>".a:lastline."GA)\<ESC>"
-endfunction
-
-function! WrapInFunctioNMarks()
-    let s:firstMark = input("first mark: ", "q")
-    let s:lastMark = input("last mark: ", "w")
-    let s:usrPrompt = input("func: ", "")
-    execute "normal `".s:lastMark."a)\<ESC>`".s:firstMark."i".s:usrPrompt."(\<ESC>"
-endfunction
-:noremap <C-L>f :call WrapInFunctioNMarks()<CR>
-
-function! IndentJSon()
-    " add line feeds
-    execute "%s/\\\([{[,]\\\)/\\1\\r/ge"
-    execute "%s/\\\([\\]}]\\\)/\\r\\1/ge"
-    " do some weird substitutions to have =G work nicely
-    execute "%s/{/{\001/ge"
-    execute "%s/}/}\001/ge"
-    execute "%s/\\[/{{/ge"
-    execute "%s/]/}}/ge"
-    execute "%s/;/;\001/ge"
-    execute "%s/,/;;/ge"
-    " indent
-    execute "normal gg=G"
-    " reverse weird substitutions
-    execute "%s/;;/,/ge"
-    execute "%s/;\001/;/ge"
-    execute "%s/\001/,/ge"
-    execute "%s/{{/[/ge"
-    execute "%s/}}/]/ge"
-    execute "%s/{\001/}/ge"
-    execute "%s/{\001/}/ge"
-endfunction
-:noremap <C-L>ij :call IndentJSon()<CR>
+:vnoremap <C-L>f :call WrapInFunction()<CR>
 
 let g:fToggleTextWidth = 0
 function! ToggleTextWidth()

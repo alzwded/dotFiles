@@ -1,5 +1,5 @@
 " TODO update s:perlPath accordingly
-let s:perlPath = 'D:\StrawberryPerl\portableshell-oneoff.bat'
+let s:perlPath = 'C:\StrawberryPerl\portableshell-oneoff.bat'
 
 function! MDToHtml()
     let l:currentFile = expand("%:t")
