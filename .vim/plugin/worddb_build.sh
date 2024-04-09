@@ -34,5 +34,6 @@ done
 
 sqlite3 "$DB" <<EOT
 -- index for fastest word lookups
-CREATE INDEX aaa ON refs(word COLLATE NOCASE);
+CREATE INDEX aaa ON words(word COLLATE NOCASE);
+--CREATE INDEX bbb ON refs(word); -- apparently not needed, the unique constraints generate a phantom index
 EOT
