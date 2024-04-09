@@ -34,5 +34,5 @@ done
 
 sqlite3 "$DB" <<EOT
 -- index for fastest word lookups
-CREATE INDEX aaa ON refs(word);
+CREATE INDEX aaa ON refs(word COLLATE NOCASE);
 EOT
