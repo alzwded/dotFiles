@@ -114,11 +114,11 @@ function! IndentJSon()
     " reverse weird substitutions
     execute "%s/;;/,/ge"
     execute "%s/;\001/;/ge"
-    execute "%s/\001/,/ge"
+    "execute "%s/\001/,/ge"
     execute "%s/{{/[/ge"
     execute "%s/}}/]/ge"
-    execute "%s/{\001/}/ge"
-    execute "%s/{\001/}/ge"
+    execute "%s/{\001/{/ge"
+    execute "%s/}\001/}/ge"
 endfunction
 :noremap <C-L>ij :call IndentJSon()<CR>
 
