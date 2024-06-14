@@ -77,13 +77,6 @@ endfunction
 :imap <C-L>cE <ESC>:call CPrintAbove("ERROR")<CR>
 :imap <C-L>jE <ESC>:call JavaPrintAbove("ERROR")<CR>
 
-" wrap selection in function
-function! WrapInFunctionV() range
-    let s:usrPrompt = input("func: ", "")
-    execute "normal `>a)\<ESC>`<i".s:usrPrompt."(\<ESC>"
-endfunction
-:vnoremap <C-L>f :call WrapInFunctionV()<CR>
-
 " this one's here as an example
 function! WrapInFunctionL() range
     let s:usrPrompt = input("func: ", "")
@@ -92,11 +85,66 @@ endfunction
 
 function! WrapInFunctioNMarks()
     let s:firstMark = input("first mark: ", "q")
-    let s:lastMark = input("last mark: ", "w")
+    let s:secondMark = input("second mark: ", "w")
     let s:usrPrompt = input("func: ", "")
-    execute "normal `".s:lastMark."a)\<ESC>`".s:firstMark."i".s:usrPrompt."(\<ESC>"
+    execute "normal `".s:secondMark."a)\<ESC>`".s:firstMark."i".s:usrPrompt."(\<ESC>"
 endfunction
 :noremap <C-L>f :call WrapInFunctioNMarks()<CR>
+
+" wrap selection in function
+function! WrapInFunctionV() range
+    let s:usrPrompt = input("func: ", "")
+    execute "normal `>a)\<ESC>`<i".s:usrPrompt."(\<ESC>"
+endfunction
+:vnoremap <C-L>f :call WrapInFunctionV()<CR>
+
+" wrap selection in quotes
+function! WrapInQuotesMarks()
+    let s:firstMark = input("first mark: ", "q")
+    let s:secondMark = input("second mark: ", "w")
+    echo "Quote character?"
+    let s:inp = nr2char(getchar())
+    if s:inp == "\<ESC>"
+        return
+    elseif s:inp == '(' || s:inp == ')'
+        let s:start = "("
+        let s:end = ")"
+    elseif s:inp == '[' || s:inp == ']'
+        let s:start = "["
+        let s:end = "]"
+    elseif s:inp == '{' || s:inp == '}'
+        let s:start = "{"
+        let s:end = "}"
+    else
+        let s:start = s:inp
+        let s:end = s:inp
+    endif
+    execute "normal `" . s:secondMark . "a" . s:end . "\<ESC>`" . s:firstMark . "i" . s:start . "\<ESC>"
+endfunction
+:noremap <C-L>" :call WrapInQuotesMarks()<CR>
+
+" wrap selection in quotes
+function! WrapInQuotes()
+    echo "Quote character?"
+    let s:inp = nr2char(getchar())
+    if s:inp == "\<ESC>"
+        return
+    elseif s:inp == '(' || s:inp == ')'
+        let s:start = "("
+        let s:end = ")"
+    elseif s:inp == '[' || s:inp == ']'
+        let s:start = "["
+        let s:end = "]"
+    elseif s:inp == '{' || s:inp == '}'
+        let s:start = "{"
+        let s:end = "}"
+    else
+        let s:start = s:inp
+        let s:end = s:inp
+    endif
+    execute "normal `>a" . s:end . "\<ESC>`<i" . s:start . "\<ESC>"
+endfunction
+:vnoremap <C-L>" :call WrapInQuotes()<CR>
 
 function! IndentJSon()
     " add line feeds
