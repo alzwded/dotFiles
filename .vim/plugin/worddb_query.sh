@@ -36,6 +36,6 @@ case $1 in
         sqlite3 "$DB" "select file from files where id in (select file from refs where word in ( select id from words where word like '$THING' escape '@' ))"
         ;;
     f)
-        sqlite3 "$DB" 'select distinct file from files where file like "%'"$THING"'%";'
+        sqlite3 "$DB" 'select distinct file from files where file like "%'"$THING"'%" escape "@";'
         ;;
 esac
