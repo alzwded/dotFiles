@@ -14,7 +14,9 @@
       c-basic-offset 4)
 
 (global-display-line-numbers-mode)
+(column-number-mode)
 
 ;; remember these!
 ;; (c-set-style "k&r")
 ;; (global-display-line-numbers-mode)
+;; (column-number-mode) ;; same as mg's column-number-mode
