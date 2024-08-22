@@ -29,10 +29,10 @@ function! Iworddb()
     call inputrestore()
 endfunction
 
-function! IworddbInBuffer()
+function! IworddbInBuffer(args)
     call inputsave()
     let searchfor = input("? ")
-    let cmdline = s:path . '/worddb_query.sh e "' . searchfor . '"'
+    let cmdline = s:path . '/worddb_query.sh ' . a:args . ' "' . searchfor . '"'
     " run query
     let choices = systemlist(cmdline)
     :execute "normal :new\<CR>"
@@ -69,7 +69,23 @@ function! Iworddbfiles(args)
     call inputrestore()
 endfunction
 
+function! WorddbOpenFileFromLineRefInNew()
+    let l:line = getline(".")
+    let chunks = split(l:line, ':')
+    " echo chunks
+    let fname = chunks[0]
+    if len(chunks) > 1
+        let lno = chunks[1]
+        :execute 'new +' . lno . ' ' . fname
+    else
+        :execute 'new ' . fname
+    endif
+endfunction
+
 :map <C-L>we <ESC>:call Iworddb()<CR>
-:map <C-L>wE <ESC>:call IworddbInBuffer()<CR>
+:map <C-L>wE <ESC>:call IworddbInBuffer('e')<CR>
 :map <C-L>ww <ESC>:call Iworddbfiles('w')<CR>
 :map <C-L>wf <ESC>:call Iworddbfiles('f')<CR>
+:map <C-L>wW <ESC>:call IworddbInBuffer('w')<CR>
+:map <C-L>wF <ESC>:call IworddbInBuffer('f')<CR>
+:map <C-L>wg <ESC>:call WorddbOpenFileFromLineRefInNew()<CR>
