@@ -103,3 +103,8 @@ let g:zipPlugin_ext='*.docm,*.docx,*.dotm,*.dotx,*.epub,*.jar,*.odc,*.odf,*.odg,
 
 " I have wireless keyboards that reboot themselves if ESC and K overlap
 :noremap <F1> <ESC>
+:inoremap <F1> <ESC>
+:vnoremap <F1> <ESC>
+:cnoremap <F1> <ESC>
+:onoremap <F1> <ESC>
+:xnoremap <F1> <ESC>
