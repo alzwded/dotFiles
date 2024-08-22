@@ -100,3 +100,6 @@ let g:zipPlugin_ext='*.docm,*.docx,*.dotm,*.dotx,*.epub,*.jar,*.odc,*.odf,*.odg,
 " On OpenBSD, the system gdb is very old, the newer one is installed
 " from ports and called egdb
 "let g:termdebugger = "egdb"
+
+" I have wireless keyboards that reboot themselves if ESC and K overlap
+:noremap <F1> <ESC>
