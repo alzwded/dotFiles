@@ -1,6 +1,6 @@
 if has("win32")
     function! Speak(text)
-        call system('PowerShell -Command "Add-Type –AssemblyName System.Speech; $a = New-Object System.Speech.Synthesis.SpeechSynthesizer; ' .. "$a.SelectVoiceByHints('female');" .. ' $a.Rate = 5; $a.Volume = 70; $text = Read-Host; $a.Speak($text);"', a:text)
+        call system('PowerShell -Command "Add-Type –AssemblyName System.Speech; $a = New-Object System.Speech.Synthesis.SpeechSynthesizer; ' .. "$a.SelectVoiceByHints('female');" .. ' $a.Rate = 5; $a.Volume = 70; $text = (@(While($l = Read-Host){$l}) -join(\"`n\")); $a.Speak($text);"', a:text)
     endfunction
 else
     function! Speak(text)
@@ -30,6 +30,6 @@ function! SpeakVisual()
     call Speak(l:text)
 endfunction
 
-noremap <C-L>l :call SpeakLine()<CR>
-noremap <C-L>n :call Speak(buffer_name())<CR>
-:vnoremap <C-L>l :call SpeakVisual()<CR>
+nnoremap <C-L>l :call SpeakLine()<CR>
+nnoremap <C-L>n :call Speak(buffer_name())<CR>
+vnoremap <C-L>l <ESC>:call SpeakVisual()<CR>
