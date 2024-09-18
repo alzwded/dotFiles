@@ -1,10 +1,30 @@
 if has("win32")
+    let s:path = expand('<sfile>:p:h')
+    let s:speakserviceeverinitialized = 0
     function! Speak(text)
+        if s:speakserviceeverinitialized == 0 || job_status(s:speakservice) != "run"
+            let s:speakservice = job_start('PowerShell -File "' .. s:path .. '\speakservice.ps1'  .. '"')
+            let s:speakserviceeverinitialized = 1
+            echo "Started service; :call TerminateSpeechService() to stop early"
+        endif
+        let ch = job_getchannel(s:speakservice)
+        call ch_sendraw(ch, a:text .. "\n")
+    endfunction
+    function! TerminateSpeechService()
+        if s:speakserviceeverinitialized != 0 && job_status(s:speakservice) == "run"
+            echo "Terminating"
+            call job_stop(s:speakservice)
+        endif
+    endfunction
+    function! Speak1(text)
         call system('PowerShell -Command "Add-Type –AssemblyName System.Speech; $a = New-Object System.Speech.Synthesis.SpeechSynthesizer; ' .. "$a.SelectVoiceByHints('female');" .. ' $a.Rate = 5; $a.Volume = 70; $text = (@(While($l = Read-Host){$l}) -join(\"`n\")); $a.Speak($text);"', a:text)
     endfunction
 else
     function! Speak(text)
         call system("espeak -s 260 -k 1 -p 90", a:text)
+    endfunction
+    function! TerminateSpeechService()
+        echo "Not implemented on Linux; you should be able to ^C"
     endfunction
 endif
 
@@ -32,4 +52,5 @@ endfunction
 
 nnoremap <C-L>l :call SpeakLine()<CR>
 nnoremap <C-L>n :call Speak(buffer_name())<CR>
+nnoremap <C-L>L :call TerminateSpeechService()<CR>
 vnoremap <C-L>l <ESC>:call SpeakVisual()<CR>
