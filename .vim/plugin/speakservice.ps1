@@ -19,9 +19,7 @@ if($m) {
         while($true) {
             $now = Get-Date;
             $shared = $Using:shared;
-            $old = $Using:shared;
-            #Write-Error $now $old.Value
-            if($now -gt $old.Value.AddSeconds($Using:TIMEOUT)) {
+            if($now -gt $shared.Value.AddSeconds($Using:TIMEOUT)) {
                 Stop-Process -ID $Using:self
             }
             Start-Sleep -Seconds 1
