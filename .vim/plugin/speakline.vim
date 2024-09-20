@@ -54,3 +54,5 @@ nnoremap <C-L>l :call SpeakLine()<CR>
 nnoremap <C-L>n :call Speak(buffer_name())<CR>
 nnoremap <C-L>L :call TerminateSpeechService()<CR>
 vnoremap <C-L>l <ESC>:call SpeakVisual()<CR>
+tnoremap <C-L>l <C-W>N:call SpeakLine()<CR>i
+tnoremap <C-L>l <C-W>N:call Speak(buffer_name())<CR>i
