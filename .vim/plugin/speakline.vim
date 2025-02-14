@@ -1,3 +1,45 @@
+let s:verbose = 0
+
+function! SpeakVerbosen(intext)
+    let l:text = a:intext
+    " must be first to sort out . and -
+    let l:text = substitute(l:text, "\\.", "", "g")
+    let l:text = substitute(l:text, "-", " - DASH. ", "g")
+    let l:text = substitute(l:text, "", " - DOT. ", "g")
+    " let the floodgates open
+    " Use - and . for some emphatic paush
+    let l:text = substitute(l:text, "\&", " - AMPERSAND. ", "g")
+    let l:text = substitute(l:text, "\\!", " - EXCLAMATION. ", "g")
+    let l:text = substitute(l:text, "\\~", " - TILDE. ", "g")
+    let l:text = substitute(l:text, "`", " - BACKTICK. ", "g")
+    let l:text = substitute(l:text, "#", " - HASH. ", "g")
+    let l:text = substitute(l:text, "\\$", " - DOLLAR. ", "g")
+    let l:text = substitute(l:text, "%", " - PERCENT. ", "g")
+    let l:text = substitute(l:text, "\\^", " - CARRET. ", "g")
+    let l:text = substitute(l:text, "\\*", " - STAR. ", "g")
+    let l:text = substitute(l:text, "(", " - OPEN PAREN. ", "g")
+    let l:text = substitute(l:text, ")", " - CLOSE PAREN. ", "g")
+    let l:text = substitute(l:text, "_", " - UNDERSCORE. ", "g")
+    let l:text = substitute(l:text, "+", " - PLUS. ", "g")
+    let l:text = substitute(l:text, "=", " - EQUALS. ", "g")
+    let l:text = substitute(l:text, "\\\\", " - BACKSLASH. ", "g")
+    let l:text = substitute(l:text, "|", " - PIPE. ", "g")
+    let l:text = substitute(l:text, "\\[", " - OPEN SQUARE. ", "g")
+    let l:text = substitute(l:text, "\\]", " - CLOSE SQUARE. ", "g")
+    let l:text = substitute(l:text, "{", " - OPEN CURLY. ", "g")
+    let l:text = substitute(l:text, "}", " - CLOSE CURLY. ", "g")
+    let l:text = substitute(l:text, ";", " - SEMICOLON. ", "g")
+    let l:text = substitute(l:text, ":", " - COLON. ", "g")
+    let l:text = substitute(l:text, "'", " - APOSTROPHE. ", "g")
+    let l:text = substitute(l:text, "\\\"", " - QUOTE. ", "g")
+    let l:text = substitute(l:text, "<", " - OPEN ANGLE. ", "g")
+    let l:text = substitute(l:text, ">", " - CLOSE ANGLE. ", "g")
+    let l:text = substitute(l:text, ",", " - COMMA. ", "g")
+    let l:text = substitute(l:text, "/", " - SLASH. ", "g")
+    let l:text = substitute(l:text, "?", " - QUESTION. ", "g")
+    return l:text
+endfunction
+
 if has("win32")
     let s:path = expand('<sfile>:p:h')
     let s:speakserviceeverinitialized = 0
@@ -33,6 +75,9 @@ function! SpeakLine()
     let l:pos = getcurpos()
     let l:lnum = l:pos[1]
     let l:col = l:pos[2]
+    if s:verbose
+        let l:text = SpeakVerbosen(l:text)
+    endif
     let l:toSpeak = l:lnum .. ": " .. l:text
     call Speak(l:toSpeak)
 endfunction
@@ -47,7 +92,20 @@ function! SpeakVisual()
     let lines[-1] = lines[-1][: column_end - 2]
     let lines[0] = lines[0][column_start - 1:]
     let l:text = join(lines, "\n")
+    if s:verbose
+        let l:text = SpeakVerbosen(l:text)
+    endif
     call Speak(l:text)
+endfunction
+
+function! SpeakToggleVerbose()
+    if s:verbose
+        let s:verbose = 0
+        call Speak("Verbose off")
+    else
+        let s:verbose = 1
+        call Speak("Verbose on")
+    endif
 endfunction
 
 nnoremap <C-L>l :call SpeakLine()<CR>
@@ -56,3 +114,4 @@ nnoremap <C-L>L :call TerminateSpeechService()<CR>
 vnoremap <C-L>l <ESC>:call SpeakVisual()<CR>
 tnoremap <C-L>l <C-W>N:call SpeakLine()<CR>i
 tnoremap <C-L>l <C-W>N:call Speak(buffer_name())<CR>i
+nnoremap <C-L>q :call SpeakToggleVerbose()<CR>
