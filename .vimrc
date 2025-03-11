@@ -40,9 +40,6 @@ set sw=4
 :map <C-L>x :set ro<CR>:%!xxd<CR>
 :map <C-L>X :%!xxd -r<CR>:set noro<CR>
 
-:map <C-L>q <ESC>:qa<CR>
-:map <C-L>!! <ESC>:qa!<CR>
-
 :map <Left> zh
 :map <Right> zl
 
