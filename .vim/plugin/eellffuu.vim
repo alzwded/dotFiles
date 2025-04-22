@@ -187,3 +187,10 @@ function! ToggleTextWidth()
     echo l:msg
 endfunction
 :noremap <C-L>t :call ToggleTextWidth()<CR>
+
+function! ShowMessagesInBuffer()
+    execute ":new"
+    :put =execute(\"messages\")
+    execute ":set nomod"
+endfunction
+:noremap <C-L>m :call ShowMessagesInBuffer()<CR>
