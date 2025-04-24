@@ -29,6 +29,12 @@ set sw=4
 :set mouse=a
 :set wildmenu
 :set wildmode=full
+
+" set list
+set lcs+=space:.
+set lcs+=tab:>\   " that's '> '
+
+
 :map <F5> :set mouse=a<CR>:set number<CR>:set ai<CR>
 :map <F6> :set mouse=""<CR>:set nonumber<CR>:set noai<CR>a
 :imap <F5> <ESC>:set mouse=a<CR>:set number<CR>:set ai<CR>

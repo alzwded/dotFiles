@@ -115,3 +115,10 @@ vnoremap <C-L>l <ESC>:call SpeakVisual()<CR>
 tnoremap <C-L>l <C-W>N:call SpeakLine()<CR>i
 tnoremap <C-L>l <C-W>N:call Speak(buffer_name())<CR>i
 nnoremap <C-L>q :call SpeakToggleVerbose()<CR>
+
+" in netrw (:Explore) C-L instantly refreshes and that key does not get treated as a prefix
+nnoremap <C-S>l :call SpeakLine()<CR>
+nnoremap <C-S>n :call Speak(buffer_name())<CR>
+vnoremap <C-S>l <ESC>:call SpeakVisual()<CR>
+" but don't map C-S things in terminal mode, that may be needed in the terminal itself
+nnoremap <C-S>q :call SpeakToggleVerbose()<CR>
