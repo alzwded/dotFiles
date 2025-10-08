@@ -49,8 +49,7 @@ set lcs+=tab:>\   " that's '> '
 :map <Left> zh
 :map <Right> zl
 
-set directory=/home/test/vimSwaps/
-"set directory=d:\vimSwaps
+set directory="~/vimSwaps"
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd BufNewFile,BufRead *.m setlocal syntax=objc
@@ -114,25 +113,17 @@ let g:zipPlugin_ext='*.docm,*.docx,*.dotm,*.dotx,*.epub,*.jar,*.odc,*.odf,*.odg,
 :nnoremap <F1> <ESC>
 :onoremap <F1> <ESC>
 
-" for nvim, tell it to use vim things:
-" :exe 'edit '.stdpath('config').'/init.lua'
-" :write ++p
-" with contents
-" vim.cmd('set runtimepath^=~/.vim runtimepath+=~/.vim/after')
-" vim.o.packpath = vim.o.runtimepath
-" vim.cmd('source ~/.vimrc')
-" or windows:
-" vim.cmd('set runtimepath^=~/vimFiles runtimepath+=~/vimFiles/after')
-" vim.o.packpath = vim.o.runtimepath
-" vim.cmd('source ~/_vimrc')
 if has('nvim')
     " nvim's default color scheme is attrocious
     :color morning
     " using lazy.nvim stops these loading for some reason;
     " I don't care to understand, so just load them manually
-    for exp in ['plugin']
-        for f in split(glob('~/.vim/'..exp..'/*.vim'), '\n')
-            execute 'source' f
-        endfor
+    if has('win32')
+        let pluginglob = '~/vimFiles/plugin/*.vim'
+    else
+        let pluginglob = '~/.vim/plugin/*.vim'
+    endif
+    for f in split(glob(pluginglob), '\n')
+        execute 'source' f
     endfor
 endif
