@@ -81,7 +81,9 @@ require("codecompanion").setup({
                 "insert_edit_into_file",
                 "list_code_usages",
                 "read_file",
-              }
+              },
+              auto_submit_errors = true,
+              auto_submit_success = true,
           },
           ["cmd_runner"] = {
               opts = {
@@ -98,6 +100,10 @@ require("codecompanion").setup({
         model = lllmodel,
       },
       tools = {
+          opts = {
+              auto_submit_errors = true,
+              auto_submit_success = true,
+          },
           ["cmd_runner"] = {
               opts = {
                   requires_approval = true,
@@ -113,6 +119,10 @@ require("codecompanion").setup({
         model = lllmodel,
       },
       tools = {
+          opts = {
+              auto_submit_errors = true,
+              auto_submit_success = true,
+          },
           ["cmd_runner"] = {
               opts = {
                   requires_approval = true,
