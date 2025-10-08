@@ -54,19 +54,6 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
-strategies = {
-    chat = {
-      tools = {
-        opts = {
-          default_tools = {
-            "my_tool",
-            "my_tool_group"
-          }
-        },
-      }
-    }
-  }
-
 --lllmodel = "claude-sonnet-4"
 lllmodel = "gpt-4.1"
 require("codecompanion").setup({
