@@ -56,6 +56,36 @@ require("lazy").setup({
 
 --lllmodel = "claude-sonnet-4"
 lllmodel = "gpt-4.1"
+llldefault_tools = {
+    "cmd_runner",
+    "create_file",
+    "file_search",
+    "get_changed_files",
+    --"grep_search", -- requires ripgrep to be installed
+    "insert_edit_into_file",
+    "list_code_usages",
+    "read_file",
+}
+lllcommon_adapter_opts = {
+    adapter = {
+        name = "copilot",
+        model = lllmodel,
+    },
+    tools = {
+        opts = {
+            default_tools = llldefault_tools,
+            auto_submit_errors = true,
+            auto_submit_success = true,
+        },
+        ["cmd_runner"] = {
+            opts = {
+                requires_approval = true,
+                auto_submit_errors = true,
+                auto_submit_success = true,
+            }
+        }
+    },
+}
 require("codecompanion").setup({
   memory = {
     opts = {
@@ -65,73 +95,9 @@ require("codecompanion").setup({
     },
   },
   strategies = {
-    chat = {
-      adapter = {
-        name = "copilot",
-        model = lllmodel,
-      },
-      tools = {
-          opts = {
-              default_tools = {
-                "cmd_runner",
-                "create_file",
-                "file_search",
-                "get_changed_files",
-                --"grep_search", -- requires ripgrep to be installed
-                "insert_edit_into_file",
-                "list_code_usages",
-                "read_file",
-              },
-              auto_submit_errors = true,
-              auto_submit_success = true,
-          },
-          ["cmd_runner"] = {
-              opts = {
-                  requires_approval = true,
-                  auto_submit_errors = true,
-                  auto_submit_success = true,
-              }
-          }
-      },
-    },
-    inline = {
-      adapter = {
-        name = "copilot",
-        model = lllmodel,
-      },
-      tools = {
-          opts = {
-              auto_submit_errors = true,
-              auto_submit_success = true,
-          },
-          ["cmd_runner"] = {
-              opts = {
-                  requires_approval = true,
-                  auto_submit_errors = true,
-                  auto_submit_success = true,
-              }
-          }
-      },
-    },
-    agent = {
-      adapter = {
-        name = "copilot",
-        model = lllmodel,
-      },
-      tools = {
-          opts = {
-              auto_submit_errors = true,
-              auto_submit_success = true,
-          },
-          ["cmd_runner"] = {
-              opts = {
-                  requires_approval = true,
-                  auto_submit_errors = true,
-                  auto_submit_success = true,
-              }
-          }
-      },
-    }
+    chat = lllcommon_adapter_opts,
+    inline = lllcommon_adapter_opts,
+    agent = lllcommon_adapter_opts,
   },
   opts = {
     log_level = "DEBUG",
