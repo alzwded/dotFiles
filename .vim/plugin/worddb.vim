@@ -3,6 +3,10 @@ let s:path = expand('<sfile>:p:h')
 function! Iworddb()
     call inputsave()
     let searchfor = input("? ")
+    if empty(searchfor)
+        call inputrestore()
+        return
+    endif
     let cmdline = s:path . '/worddb_query.sh e "' . searchfor . '"'
     " run query
     let choices = systemlist(cmdline)[0:199]
@@ -32,6 +36,10 @@ endfunction
 function! IworddbInBuffer(args)
     call inputsave()
     let searchfor = input("? ")
+    if empty(searchfor)
+        call inputrestore()
+        return
+    endif
     let cmdline = s:path . '/worddb_query.sh ' . a:args . ' "' . searchfor . '"'
     " run query
     let choices = systemlist(cmdline)
@@ -45,6 +53,10 @@ endfunction
 function! Iworddbfiles(args)
     call inputsave()
     let searchfor = input("? ")
+    if empty(searchfor)
+        call inputrestore()
+        return
+    endif
     let cmdline = s:path . '/worddb_query.sh ' . a:args . ' "' . searchfor . '"'
     " run query
     let choices = systemlist(cmdline)[0:199]
