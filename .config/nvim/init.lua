@@ -54,8 +54,16 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
---lllmodel = "claude-sonnet-4"
-lllmodel = "gpt-4.1"
+llladapters = {
+    copilot = {
+      name = "copilot",
+      model = "gpt-4.1",
+      --model = "claude-sonnet-4",
+    },
+    gemini_cli = "gemini_cli"
+}
+lllchatadapter = "gemini_cli"
+lllotheradapter = "copilot"
 llldefault_tools = {
     "cmd_runner",
     "create_file",
@@ -66,25 +74,19 @@ llldefault_tools = {
     "list_code_usages",
     "read_file",
 }
-lllcommon_adapter_opts = {
-    adapter = {
-        name = "copilot",
-        model = lllmodel,
+lllcommon_adapter_tools = {
+    opts = {
+        default_tools = llldefault_tools,
+        auto_submit_errors = true,
+        auto_submit_success = true,
     },
-    tools = {
+    ["cmd_runner"] = {
         opts = {
-            default_tools = llldefault_tools,
+            requires_approval = true,
             auto_submit_errors = true,
             auto_submit_success = true,
-        },
-        ["cmd_runner"] = {
-            opts = {
-                requires_approval = true,
-                auto_submit_errors = true,
-                auto_submit_success = true,
-            }
         }
-    },
+    }
 }
 require("codecompanion").setup({
   memory = {
@@ -95,9 +97,18 @@ require("codecompanion").setup({
     },
   },
   strategies = {
-    chat = lllcommon_adapter_opts,
-    inline = lllcommon_adapter_opts,
-    agent = lllcommon_adapter_opts,
+    chat = {
+        adapter = llladapters[lllchatadapter],
+        tools = lllcommon_adapter_tools,
+    },
+    inline = {
+        adapter = llladapters[lllotheradapter],
+        tools = lllcommon_adapter_tools,
+    },
+    agent = {
+        adapter = llladapters[lllotheradapter],
+        tools = lllcommon_adapter_tools,
+    },
   },
   opts = {
     log_level = "DEBUG",
@@ -105,4 +116,3 @@ require("codecompanion").setup({
 })
 
 require("mini.pick").setup()
-
