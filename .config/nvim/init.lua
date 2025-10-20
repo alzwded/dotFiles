@@ -60,8 +60,11 @@ llladapters = {
       model = "gpt-4.1",
       --model = "claude-sonnet-4",
     },
-    gemini_cli = "gemini_cli"
+    -- for gemini, `setenv GEMINI_MODEL gemini-2.5-flash` to change model
+    gemini_cli = "gemini_cli",
 }
+-- comment out to get the default, i.e. pro with fallback to flash (if I understand correctly)
+vim.env.GEMINI_MODEL = 'gemini-2.5-flash'
 lllchatadapter = "gemini_cli"
 lllotheradapter = "copilot"
 llldefault_tools = {
