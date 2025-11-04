@@ -126,4 +126,5 @@ if has('nvim')
     for f in split(glob(pluginglob), '\n')
         execute 'source' f
     endfor
+    :tnoremap <C-W>N <C-\><C-N>
 endif
