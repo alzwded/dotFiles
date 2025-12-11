@@ -85,13 +85,15 @@ lllcommon_adapter_tools = {
     },
     ["cmd_runner"] = {
         opts = {
-            requires_approval = true,
+            requires_approval = true, -- deprecated, use `requires_approval_before` in 18.0
+            requires_approval_before = true,
             auto_submit_errors = true,
             auto_submit_success = true,
         }
     }
 }
 require("codecompanion").setup({
+  -- deprecated, use `rules` in 18.0
   memory = {
     opts = {
       chat = {
@@ -99,7 +101,29 @@ require("codecompanion").setup({
       },
     },
   },
+  rules = {
+    opts = {
+      chat = {
+        enabled = true,
+      },
+    },
+  },
+  -- deprecated, use `interactions` in 18.0
   strategies = {
+    chat = {
+        adapter = llladapters[lllchatadapter],
+        tools = lllcommon_adapter_tools,
+    },
+    inline = {
+        adapter = llladapters[lllotheradapter],
+        tools = lllcommon_adapter_tools,
+    },
+    agent = {
+        adapter = llladapters[lllotheradapter],
+        tools = lllcommon_adapter_tools,
+    },
+  },
+  interactions = {
     chat = {
         adapter = llladapters[lllchatadapter],
         tools = lllcommon_adapter_tools,
