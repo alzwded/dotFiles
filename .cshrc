@@ -6,6 +6,7 @@ unset cdtohome
 #set color
 unset complete
 unset correct
+unset autologout
 set prompt="%c%# "
 setenv CLICOLOR
 alias ls 'ls --color=auto --quoting-style=literal'
