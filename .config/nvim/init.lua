@@ -64,6 +64,7 @@ llladapters = {
     gemini_cli = "gemini_cli",
 }
 -- comment out to get the default, i.e. pro with fallback to flash (if I understand correctly)
+-- otherwise, gemini-2.5-flash, gemini-2.5-pro, gemini-3-flash-preview etc
 vim.env.GEMINI_MODEL = 'gemini-2.5-flash'
 lllchatadapter = "gemini_cli"
 lllotheradapter = "copilot"
@@ -71,11 +72,12 @@ llldefault_tools = {
     "cmd_runner",
     "create_file",
     "file_search",
-    "get_changed_files",
+    --"get_changed_files",
     --"grep_search", -- requires ripgrep to be installed
     "insert_edit_into_file",
-    "list_code_usages",
+    --"list_code_usages",
     "read_file",
+    --"memory",
 }
 lllcommon_adapter_tools = {
     opts = {
@@ -85,7 +87,6 @@ lllcommon_adapter_tools = {
     },
     ["cmd_runner"] = {
         opts = {
-            requires_approval = true, -- deprecated, use `requires_approval_before` in 18.0
             requires_approval_before = true,
             auto_submit_errors = true,
             auto_submit_success = true,
@@ -93,12 +94,19 @@ lllcommon_adapter_tools = {
     }
 }
 require("codecompanion").setup({
-  -- deprecated, use `rules` in 18.0
-  memory = {
-    opts = {
-      chat = {
-        enabled = true,
-      },
+  adapters = {
+    acp = {
+      gemini_cli = function()
+        return require ("codecompanion.adapters").extend("gemini_cli", {
+            defaults = {
+                auth_method = "oauth-personal", -- also the default
+                timeout = 120000, -- slow laptop needs a minute; default was 20s
+            },
+            env = {
+                GEMINI_MODEL = vim.env.GEMINI_MODEL or "gemini-2.5-flash",
+            },
+        });
+      end,
     },
   },
   rules = {
@@ -106,21 +114,6 @@ require("codecompanion").setup({
       chat = {
         enabled = true,
       },
-    },
-  },
-  -- deprecated, use `interactions` in 18.0
-  strategies = {
-    chat = {
-        adapter = llladapters[lllchatadapter],
-        tools = lllcommon_adapter_tools,
-    },
-    inline = {
-        adapter = llladapters[lllotheradapter],
-        tools = lllcommon_adapter_tools,
-    },
-    agent = {
-        adapter = llladapters[lllotheradapter],
-        tools = lllcommon_adapter_tools,
     },
   },
   interactions = {
