@@ -2,6 +2,8 @@ if vim.fn.has("win32") == 1 then
     vim.cmd('set runtimepath^=~/vimFiles runtimepath+=~/vimFiles/after')
     vim.o.packpath = vim.o.runtimepath
     vim.cmd('source ~/_vimrc')
+    vim.env.PYTHONIOENCODING = "utf-8"
+    vim.env.PYTHONLEGACYWINDOWSSTDIO = "utf-8"
 else
     vim.cmd('set runtimepath^=~/.vim runtimepath+=~/.vim/after')
     vim.o.packpath = vim.o.runtimepath
