@@ -67,10 +67,11 @@ llladapters = {
 }
 -- comment out to get the default, i.e. pro with fallback to flash (if I understand correctly)
 -- otherwise, gemini-2.5-flash, gemini-2.5-pro, gemini-3-flash-preview etc
-vim.env.GEMINI_MODEL = 'gemini-2.5-flash'
+--vim.env.GEMINI_MODEL = 'gemini-3-flash-preview'
 lllchatadapter = "gemini_cli"
 lllotheradapter = "copilot"
 llldefault_tools = {
+    "ask_questions",
     "cmd_runner",
     "create_file",
     "file_search",
