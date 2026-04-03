@@ -9,6 +9,7 @@ else
     vim.o.packpath = vim.o.runtimepath
     vim.cmd('source ~/.vimrc')
 end
+vim.opt.termguicolors = false
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -105,9 +106,9 @@ require("codecompanion").setup({
                 auth_method = "oauth-personal", -- also the default
                 timeout = 120000, -- slow laptop needs a minute; default was 20s
             },
-            env = {
-                GEMINI_MODEL = vim.env.GEMINI_MODEL or "gemini-2.5-flash",
-            },
+            --env = {
+            --    GEMINI_MODEL = vim.env.GEMINI_MODEL or "gemini-2.5-flash",
+            --},
         });
       end,
     },
