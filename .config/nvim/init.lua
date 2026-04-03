@@ -47,7 +47,7 @@ require("lazy").setup({
         },
     },
     {
-        "github/copilot.vim",
+        "github/copilot.vim", -- feel free to disable if LSP is using up too much RAM; only needed to refresh the GHCP token and random tab completions, the latter of which I can live without
     },
   },
   -- Configure any other settings here. See the documentation for more details.
@@ -73,7 +73,7 @@ lllchatadapter = "gemini_cli"
 lllotheradapter = "copilot"
 llldefault_tools = {
     "ask_questions",
-    "cmd_runner",
+    "run_command",
     "create_file",
     "file_search",
     --"get_changed_files",
@@ -89,9 +89,9 @@ lllcommon_adapter_tools = {
         auto_submit_errors = true,
         auto_submit_success = true,
     },
-    ["cmd_runner"] = {
+    ["run_command"] = {
         opts = {
-            requires_approval_before = true,
+            require_approval_before = true,
             auto_submit_errors = true,
             auto_submit_success = true,
         }
