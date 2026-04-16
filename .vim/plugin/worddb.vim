@@ -7,9 +7,9 @@ function! Iworddb()
         call inputrestore()
         return
     endif
-    let cmdline = s:path . '/worddb_query.sh e "' . searchfor . '"'
+    let cmdline = s:path . '/worddb_query e "' . searchfor . '"'
     " run query
-    let choices = systemlist(cmdline)[0:199]
+    let choices = map(systemlist(cmdline)[0:199], 'trim(v:val, "\r", 2)')
     " add first prompt to choices
     let choices = ['Results:'] + choices
     let i = 1
@@ -41,12 +41,12 @@ function! IworddbInBuffer(args)
         return
     endif
     if a:args != 'f' && stridx(searchfor, " ") > -1
-        let cmdline = s:path . '/worddb_query.sh ' . a:args . 'n ' . searchfor
+        let cmdline = s:path . '/worddb_query ' . a:args . 'n ' . searchfor
     else
-        let cmdline = s:path . '/worddb_query.sh ' . a:args . ' "' . searchfor . '"'
+        let cmdline = s:path . '/worddb_query ' . a:args . ' "' . searchfor . '"'
     endif
     " run query
-    let choices = systemlist(cmdline)
+    let choices = map(systemlist(cmdline), 'trim(v:val, "\r", 2)')
     :execute "normal :new\<CR>"
     :call append('$', choices)
     :execute "normal ggdd"
@@ -62,12 +62,12 @@ function! Iworddbfiles(args)
         return
     endif
     if a:args != 'f' && stridx(searchfor, " ") > -1
-        let cmdline = s:path . '/worddb_query.sh ' . a:args . 'n ' . searchfor
+        let cmdline = s:path . '/worddb_query ' . a:args . 'n ' . searchfor
     else
-        let cmdline = s:path . '/worddb_query.sh ' . a:args . ' "' . searchfor . '"'
+        let cmdline = s:path . '/worddb_query ' . a:args . ' "' . searchfor . '"'
     endif
     " run query
-    let choices = systemlist(cmdline)[0:199]
+    let choices = map(systemlist(cmdline)[0:199], 'trim(v:val, "\r", 2)')
     " add first prompt to choices
     let choices = ['Results:'] + choices
     let i = 1
