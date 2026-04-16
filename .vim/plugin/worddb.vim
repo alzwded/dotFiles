@@ -9,7 +9,7 @@ function! Iworddb()
     endif
     let cmdline = s:path . '/worddb_query e "' . searchfor . '"'
     " run query
-    let choices = map(systemlist(cmdline)[0:199], 'trim(v:val, "\r", 2)')
+    let choices = map(systemlist(cmdline)[0:199], 'trim(v:val, "\r\n")')
     " add first prompt to choices
     let choices = ['Results:'] + choices
     let i = 1
@@ -46,7 +46,7 @@ function! IworddbInBuffer(args)
         let cmdline = s:path . '/worddb_query ' . a:args . ' "' . searchfor . '"'
     endif
     " run query
-    let choices = map(systemlist(cmdline), 'trim(v:val, "\r", 2)')
+    let choices = map(systemlist(cmdline), 'trim(v:val, "\r\n")')
     :execute "normal :new\<CR>"
     :call append('$', choices)
     :execute "normal ggdd"
@@ -67,7 +67,7 @@ function! Iworddbfiles(args)
         let cmdline = s:path . '/worddb_query ' . a:args . ' "' . searchfor . '"'
     endif
     " run query
-    let choices = map(systemlist(cmdline)[0:199], 'trim(v:val, "\r", 2)')
+    let choices = map(systemlist(cmdline)[0:199], 'trim(v:val, "\r\n")')
     " add first prompt to choices
     let choices = ['Results:'] + choices
     let i = 1
