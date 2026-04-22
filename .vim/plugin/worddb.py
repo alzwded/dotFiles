@@ -96,42 +96,60 @@ def build_db(args):
             unique_filepaths.append(filepath)
     
     # Launch thread pool to handle I/O and regex parsing
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        # Submit all tasks
-        futures = [executor.submit(extract_words_from_file, fp) for fp in unique_filepaths]
-        
-        # Process them as soon as they finish
-        for future in concurrent.futures.as_completed(futures):
-            filepath, words_in_file = future.result()
-            
-            if not words_in_file:
-                continue
+    MAX_WORKERS = 8
+    MAX_IN_FLIGHT = 16  # Max queued+running futures before we pause to insert
+    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        pending = set()
+        fp_iter = iter(unique_filepaths)
+
+        # Seed the initial batch
+        for fp in fp_iter:
+            pending.add(executor.submit(extract_words_from_file, fp))
+            if len(pending) >= MAX_IN_FLIGHT:
+                break
+
+        while pending:
+            # Wait for at least one to finish
+            done, pending = concurrent.futures.wait(
+                pending, return_when=concurrent.futures.FIRST_COMPLETED
+            )
+
+            # Refill up to MAX_IN_FLIGHT
+            for fp in fp_iter:
+                pending.add(executor.submit(extract_words_from_file, fp))
+                if len(pending) >= MAX_IN_FLIGHT:
+                    break
+
+            for future in done:
+                filepath, words_in_file = future.result()
+                if not words_in_file:
+                    continue
                 
-            print(filepath) # Mimics the 'echo "$PPPP"' progress output safely from the main thread
-            
-            # --- SYNCHRONIZED DATABASE INSERTION ---
-            # This is strictly single-threaded, ensuring perfectly sequential IDs
-            
-            cur.execute("INSERT OR IGNORE INTO files(file) VALUES(?)", (filepath,))
-            cur.execute("SELECT id FROM files WHERE file = ?", (filepath,))
-            file_row = cur.fetchone()
-            if not file_row: continue
-            file_id = file_row[0]
-            
-            words_params = [(w,) for w in words_in_file]
-            cur.executemany("INSERT OR IGNORE INTO words(word) VALUES (?)", words_params)
-            
-            word_list = list(words_in_file)
-            refs_params = []
-            # Batch word lookups to stay within SQLite's parameter limits
-            for i in range(0, len(word_list), 900):
-                chunk = word_list[i:i+900]
-                placeholders = ','.join(['?'] * len(chunk))
-                cur.execute(f"SELECT id FROM words WHERE word IN ({placeholders})", chunk)
-                word_ids = [row[0] for row in cur.fetchall()]
-                refs_params.extend([(file_id, wid) for wid in word_ids])
+                print(filepath) # Mimics the 'echo "$PPPP"' progress output safely from the main thread
                 
-            cur.executemany("INSERT OR IGNORE INTO refs(file, word) VALUES (?, ?)", refs_params)
+                # --- SYNCHRONIZED DATABASE INSERTION ---
+                # This is strictly single-threaded, ensuring perfectly sequential IDs
+                
+                cur.execute("INSERT OR IGNORE INTO files(file) VALUES(?)", (filepath,))
+                cur.execute("SELECT id FROM files WHERE file = ?", (filepath,))
+                file_row = cur.fetchone()
+                if not file_row: continue
+                file_id = file_row[0]
+                
+                words_params = [(w,) for w in words_in_file]
+                cur.executemany("INSERT OR IGNORE INTO words(word) VALUES (?)", words_params)
+                
+                word_list = list(words_in_file)
+                refs_params = []
+                # Batch word lookups to stay within SQLite's parameter limits
+                for i in range(0, len(word_list), 900):
+                    chunk = word_list[i:i+900]
+                    placeholders = ','.join(['?'] * len(chunk))
+                    cur.execute(f"SELECT id FROM words WHERE word IN ({placeholders})", chunk)
+                    word_ids = [row[0] for row in cur.fetchall()]
+                    refs_params.extend([(file_id, wid) for wid in word_ids])
+                    
+                cur.executemany("INSERT OR IGNORE INTO refs(file, word) VALUES (?, ?)", refs_params)
         
     # Create the index and finalize the transaction safely
     cur.execute("CREATE INDEX aaa ON words(word COLLATE NOCASE);")
