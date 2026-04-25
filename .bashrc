@@ -14,20 +14,7 @@ unset HISTFILE
 
 # --- Completion & Correction ---
 # Single Tab completes to ambiguity, Double Tab lists possibilities.
-
-# Enforce strict matching (no ignoring case, no fancy enhancements)
-bind 'set completion-ignore-case off'
-# Ensure it takes two tabs to list ambiguities (mimicking your old autolist behavior)
-bind 'set show-all-if-ambiguous off'
-# Replicates tcsh's 'set addsuffix' (appends a '/' to completed directories)
-bind 'set mark-directories on'
-
-# (Note: autocorrect and autoexpand are disabled by default in bash, 
-# and 'addsuffix' only applies if completion is enabled, so they require no extra config here).
-
-# incremental search like tcsh
-bind '"\ep": history-search-backward'
-bind '"\en": history-search-forward'
+#moved to .inputrc because it caused warnings on stderr when not a tty
 
 # --- Directory Navigation ---
 # unset cdtohome: In Bash, 'cd' with no arguments always goes home. 

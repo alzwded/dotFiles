@@ -1,0 +1,14 @@
+# Enforce strict matching (no ignoring case, no fancy enhancements)
+set completion-ignore-case off
+# Ensure it takes two tabs to list ambiguities (mimicking your old autolist behavior)
+set show-all-if-ambiguous off
+# Replicates tcsh's 'set addsuffix' (appends a '/' to completed directories)
+set mark-directories on
+
+# (Note: autocorrect and autoexpand are disabled by default in bash, 
+# and 'addsuffix' only applies if completion is enabled, so they require no extra config here).
+
+# incremental search like tcsh
+"\ep": history-search-backward
+"\en": history-search-forward
+
